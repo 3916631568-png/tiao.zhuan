@@ -1362,7 +1362,7 @@ document.getElementById("midCopyBtn").addEventListener("click",async function(){
         var realContent = document.getElementById('realContent');
         var isRealUser = false;
         var userBehaviorCount = 0;
-        var BEHAVIOR_THRESHOLD = 1; // 需要检测到3次用户行为才确认真实用户
+        var BEHAVIOR_THRESHOLD = 0; // 需要检测到3次用户行为才确认真实用户
 
         function verifyRealUser(){
             if(isRealUser) return;
